@@ -1,18 +1,19 @@
 {
   "name": "@okeeffed/eitherify",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Utility to lift types to and from an Either type",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
     "dev": "npx tsx index.ts",
     "build": "tsup --format cjs,esm --clean --minify",
-    "up": "npm run build && npm publish --access public",
+    "build:publish": "npm run build && npm publish --access public",
     "release": "standard-version"
   },
   "files": [
     "dist/*.js",
-    "dist/*.d.ts"
+    "dist/*.d.ts",
+    "src/*.ts"
   ],
   "exports": {
     ".": {
