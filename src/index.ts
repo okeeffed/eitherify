@@ -13,7 +13,7 @@ export type Either<T> = Success<T> | Failure;
 export const eitherify =
   <T, R>(fn: (arg: T) => R) =>
   (arg: Either<T>): Either<R> => {
-    if (!arg.success) return arg;
+    if (!arg.success) return arg as Either<R>;
 
     try {
       return { success: true, data: fn(arg.data) };
@@ -25,7 +25,7 @@ export const eitherify =
     }
   };
 
-export function wrap<T>(data: T): Success<T> {
+export function wrap<T>(data: T): Either<T> {
   return {
     success: true,
     data,
@@ -33,6 +33,15 @@ export function wrap<T>(data: T): Success<T> {
 }
 
 export function unwrap<T>(e: Either<T>): T {
-  if (!e.success) throw e.error;
+  // Ensure e is a Failure before throwing e.error
+  if (!e.success) {
+    if ("error" in e) {
+      // Type guard to ensure e is a Failure
+      throw e.error;
+    } else {
+      // Optionally handle the unexpected case where e is neither Success nor Failure
+      throw new Error("Unexpected Either type");
+    }
+  }
   return e.data;
 }
