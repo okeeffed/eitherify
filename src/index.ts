@@ -5,7 +5,7 @@ export type Success<T> = {
 
 export type Failure = {
   success: false;
-  error: Error;
+  error: unknown;
 };
 
 export type Either<T> = Success<T> | Failure;
