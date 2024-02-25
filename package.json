@@ -1,6 +1,6 @@
 {
   "name": "@okeeffed/eitherify",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Utility to lift types to and from an Either type",
   "main": "dist/index.js",
   "type": "module",
@@ -11,9 +11,8 @@
     "release": "standard-version"
   },
   "files": [
-    "dist/*.js",
-    "dist/*.d.ts",
-    "src/*.ts"
+    "dist/",
+    "src/"
   ],
   "exports": {
     ".": {
