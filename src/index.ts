@@ -11,12 +11,13 @@ export type Failure = {
 export type Either<T> = Success<T> | Failure;
 
 export const eitherify =
-  <T, R>(fn: (arg: T) => R) =>
-  (arg: Either<T>): Either<R> => {
+  <T, R>(fn: (arg: T) => R | Promise<R>) =>
+  async (arg: Either<T>): Promise<Either<R>> => {
     if (!arg.success) return arg as Either<R>;
 
     try {
-      return { success: true, data: fn(arg.data) };
+      const result = await fn(arg.data); // Use await to handle both Promise<R> and R transparently
+      return { success: true, data: result };
     } catch (error) {
       return {
         success: false,
